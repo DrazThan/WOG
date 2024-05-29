@@ -33,14 +33,17 @@ Your choice: """)
 def main_menu():
     user_name = welcome()
     while True:
-        game,difficulty = start_play()
+        game,user_difficulty_select = start_play()
         if game == "1":
-            pass
+            from guess_game import generate_number, get_guess_user, compare_results
+            random_number = generate_number(user_difficulty_select)
+            user_guess = get_guess_user(user_difficulty_select)
+            compare_results(user_guess, random_number)
         elif game == "2":
             pass
         elif game == "3":
             from currency_roulette_game import play_currency_roulette
-            play_currency_roulette(difficulty)
+            play_currency_roulette(user_difficulty_select)
         
         play_again = input("Do you want to play another game? (yes/no): ").lower()
         if play_again != "yes":
