@@ -30,10 +30,22 @@ Your choice: """)
     print(f"You have selected {game_select[user_game_select]} with Difficulty {user_difficulty_select}")
     return user_game_select, user_difficulty_select
 
-if __name__ == "__main__":
+def main_menu():
     user_name = welcome()
-    game, difficulty = start_play()
-    
-    if game == "3":
-        from currency_roulette_game import play_currency_roulette
-        play_currency_roulette(difficulty)
+    while True:
+        game,difficulty = start_play()
+        if game == "1":
+            pass
+        elif game == "2":
+            pass
+        elif game == "3":
+            from currency_roulette_game import play_currency_roulette
+            play_currency_roulette(difficulty)
+        
+        play_again = input("Do you want to play another game? (yes/no): ").lower()
+        if play_again != "yes":
+            print("Thank you for playing! See you next time.")
+            break  # Exit the loop and end the program
+
+if __name__ == "__main__":
+    main_menu()
