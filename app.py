@@ -1,6 +1,9 @@
+# This file acts as the main menu and entry point for the games.
+
 def welcome():
-    user_name_input = input("Please Enter Your Username ")
-    print("Hi " + user_name_input + " and welcome to the World of Games: The Epic Journey")
+    user_name_input = input("Please Enter Your Username: ")
+    print(f"Hi {user_name_input} and welcome to the World of Games: The Epic Journey")
+    return user_name_input
 
 def start_play():
     game_select = {
@@ -24,8 +27,13 @@ Your choice: """)
         print("Invalid difficulty level. Please select a number between 1 and 5.")
         user_difficulty_select = input("Please select a difficulty of 1-5: ")
     
-        print(f"You have selected {game_select[user_game_select]} with Difficulty {user_difficulty_select}")
-    return user_difficulty_select
+    print(f"You have selected {game_select[user_game_select]} with Difficulty {user_difficulty_select}")
+    return user_game_select, user_difficulty_select
 
-welcome()
-start_play()
+if __name__ == "__main__":
+    user_name = welcome()
+    game, difficulty = start_play()
+    
+    if game == "3":
+        from currency_roulette_game import play_currency_roulette
+        play_currency_roulette(difficulty)
