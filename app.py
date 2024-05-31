@@ -40,7 +40,10 @@ def main_menu():
             user_guess = get_guess_user(user_difficulty_select)
             compare_results(user_guess, random_number)
         elif game == "2":
-            pass
+            from memory_game import generate_sequence,get_list_from_user,is_list_equal
+            random_list = generate_sequence(int(user_difficulty_select))
+            user_list = get_list_from_user()    
+            is_list_equal(user_list,random_list)
         elif game == "3":
             from currency_roulette_game import play_currency_roulette
             play_currency_roulette(user_difficulty_select)
