@@ -12,4 +12,6 @@ def get_guess_user(user_difficulty_select):
 def compare_results(user_guess,random_number):
     if user_guess == random_number:
         print ("You are correct")
+        user_wins = True
+        return user_wins
     else: print(f"You failed, the number was {random_number}")

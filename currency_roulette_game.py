@@ -38,5 +38,7 @@ def play_currency_roulette(difficulty_level):
     # Add the rest of your game logic here
     if abs(int(random_number_converted) - int(user_guess)) <= allowed_difference:
         print("Congratulations! Your guess is within the allowed difference.")
+        user_wins = True
     else:
         print("You failed")
+    return user_wins

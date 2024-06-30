@@ -37,5 +37,7 @@ def get_list_from_user():
 def is_list_equal(user_list,random_list):
     if user_list == random_list :
         print ("You are correct")
+        user_wins = True
     else:
         print("You failed")
+    return user_wins
