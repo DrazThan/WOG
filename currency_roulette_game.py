@@ -1,44 +1,44 @@
-# This file contains the Currency Roulette game logic.
-
-import requests
+# currency_roulette_game.py
 import random
+from currency_converter import CurrencyConverter
 
 def get_money_interval(amount, from_currency, to_currency):
     try:
-        url = f'https://v6.exchangerate-api.com/v6/e2cce35ea4f3b261be89eb88/latest/USD'
-        response = requests.get(url)
-        data = response.json()
-        
-        if response.status_code != 200:
-            raise Exception("Error: API request unsuccessful.")
-        
-        if 'conversion_rates' not in data:
-            raise Exception("Error: Conversion rates not found in the response.")
-        
-        if to_currency in data['conversion_rates']:
-            rate = data['conversion_rates'][to_currency]
-            converted_amount = amount * rate
-            return converted_amount
-        else:
-            raise Exception(f"Error: Currency {to_currency} not found.")
+        c = CurrencyConverter()        
+        converted_amount = c.convert(amount, from_currency, to_currency)
+        return converted_amount
     except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        print("Finished currency conversion.")
+        print(f"An error occurred during currency conversion: {e}")
+        print(f"Error type: {type(e)}")
+        return None
 
 def play_currency_roulette(difficulty_level):
-    random_number = random.randint(1,100)
-    #print(random_number)
+    random_number = random.randint(1, 100)
     random_number_converted = get_money_interval(random_number, 'USD', 'ILS')
-    #print(random_number_converted)
+    
+    if random_number_converted is None:
+        print("Sorry, we couldn't perform the currency conversion. Please try again later.")
+        return False
+
     allowed_difference = 10 - int(difficulty_level)
     print(f"The allowed difference is: {allowed_difference}")
-    #print(f"Please conver the following ammount from USD to ILS {random_number_converted}")
-    user_guess = input(f"Please convert the following ammount from USD to ILS {random_number}: ")
-    # Add the rest of your game logic here
-    if abs(int(random_number_converted) - int(user_guess)) <= allowed_difference:
-        print("Congratulations! Your guess is within the allowed difference.")
-        user_wins = True
-    else:
-        print("You failed")
+    user_guess = input(f"Please convert the following amount from USD to ILS {random_number}: ")
+    
+    try:
+        if abs(float(random_number_converted) - float(user_guess)) <= allowed_difference:
+            print(f"Congratulations! Your guess is within the allowed difference. The exact conversion was {random_number_converted:.2f} ILS.")
+            user_wins = True
+        else:
+            print(f"You failed. The correct conversion was {random_number_converted:.2f} ILS.")
+            user_wins = False
+    except ValueError:
+        print("Invalid input. Please enter a valid number.")
+        user_wins = False
+    
     return user_wins
+
+if __name__ == "__main__":
+    # Test the currency conversion
+    print("Testing currency conversion...")
+    test_result = get_money_interval(1, 'USD', 'ILS')
+    print(f"Test result: {test_result}")
