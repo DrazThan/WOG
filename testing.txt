@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-This is the testing of the branch
-=======
-this is the conflicted line
->>>>>>> conflict-branch
