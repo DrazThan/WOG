@@ -13,15 +13,16 @@ def welcome():
 
 def start_play():
     game_select = {
-        "1": "Memory Game",
-        "2": "Guess Game",
-        "3": "Currency Roulette"
+        1: "Memory Game",
+        2: "Guess Game",
+        3: "Currency Roulette"
     }
-    user_game_select = input("""Please choose a game to play:
+    user_game_select_string = input("""Please choose a game to play:
 1. Memory Game - a sequence of numbers will appear for 1 second and you have to guess it back.
 2. Guess Game - guess a number and see if you chose like the computer.
 3. Currency Roulette - try and guess the value of a random amount of USD in ILS 
 Your choice: """)
+    user_game_select = int(user_game_select_string)
     
     while user_game_select not in game_select:
         print("Invalid selection. Please choose a valid game.")
@@ -40,16 +41,16 @@ def main_menu():
     user_name = welcome()
     while True:
         game,user_difficulty_select = start_play()
-        if game == "2":
+        if game == 2:
             random_number = generate_number(user_difficulty_select)
             user_guess = get_guess_user(user_difficulty_select)
             user_wins = compare_results(user_guess, random_number)
 
-        elif game == "1":
+        elif game == 1:
             random_list = generate_sequence(int(user_difficulty_select))
             user_list = get_list_from_user()    
             user_wins = is_list_equal(user_list,random_list)
-        elif game == "3":
+        elif game == 3:
             user_wins = play_currency_roulette(user_difficulty_select)
         if user_wins:
             add_score(user_difficulty_select)
